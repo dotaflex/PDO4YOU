@@ -10,13 +10,16 @@ PDO4You::setStyle();
 
 // Displaying details on the target server's database connected
 PDO4You::getServerInfo();
+
+// Displays all available drivers
+#PDO4You::getAvailableDrivers();
 ?>
 <!DOCTYPE html>
 <meta charset="utf-8" />
 <title>PDO4You</title>
 <style>a {color: #069; text-decoration: none;} b {color: #ccc;}</style>
 <html>
-    <body>
+    <body id="pdo4you">
         <?php
         $pag = isset($_GET['p']) ? $_GET['p'] : null;
 
