@@ -34,7 +34,7 @@ class Test_CRUD
         $rs = PDO4You::select($this->sql, $db);
 
         echo '<code>&nbsp;<strong>Test with PDO4You::select()</strong></code>';
-        echo '<code class="debug">PDO4You::select(' . $this->formatSql() . ', ' . $this->formatDB($db) . ');' . $this->formatRS($rs) . '</code>';
+        echo '<code class="debug">PDO4You::select(' . $this->formatSql() . ', ' . $this->formatDB($db) . ');' . $this->formatRS($rs, false, true) . '</code>';
     }
 
     /**
@@ -54,16 +54,16 @@ class Test_CRUD
         $rs = PDO4You::select($this->sql);
 
         echo '<code>&nbsp;<strong>Test with PDO4You::selectNum()</strong></code>';
-        echo '<code class="debug">PDO4You::selectNum(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs_num) . '</code>';
+        echo '<code class="debug">PDO4You::selectNum(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs_num, false, true) . '</code>';
 
         echo '<code>&nbsp;<strong>Test with PDO4You::selectObj()</strong></code>';
-        echo '<code class="debug">PDO4You::selectObj(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs_obj) . '</code>';
+        echo '<code class="debug">PDO4You::selectObj(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs_obj, false, true) . '</code>';
 
         echo '<code>&nbsp;<strong>Test with PDO4You::selectAll()</strong></code>';
-        echo '<code class="debug">PDO4You::selectAll(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs_all) . '</code>';
+        echo '<code class="debug">PDO4You::selectAll(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs_all, false, true) . '</code>';
 
         echo '<code>&nbsp;<strong>Test with PDO4You::select()</strong></code>';
-        echo '<code class="debug">PDO4You::select(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs) . '</code>';
+        echo '<code class="debug">PDO4You::select(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, false, true) . '</code>';
 
         // Sets another instance
         PDO4You::setInstance('pdo4you');
@@ -72,7 +72,7 @@ class Test_CRUD
         $rs = PDO4You::select($this->sql);
 
         echo '<code>&nbsp;<strong>Test with PDO4You::select() in another instance of the database</strong></code>';
-        echo '<code class="debug">PDO4You::select(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs) . '</code>';
+        echo '<code class="debug">PDO4You::select(' . $this->formatSql() . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, false, true) . '</code>';
     }
 
     /**
@@ -83,22 +83,22 @@ class Test_CRUD
     public function multipleInsert()
     {
         $sql = '
-		{ query : [
-			{
-				table: "users" ,
-				values: { firstname: "' . $this->genFakeName() . '", lastname: "' . $this->genFakeName() . '" }
-			},{
-				table: "users" ,
-				values: { firstname: "' . $this->genFakeName() . '", lastname: "' . $this->genFakeName() . '" }
-			}
-		] }
+        { query : [
+            {
+                table: "users" ,
+                values: { firstname: "' . $this->genFakeName() . '", lastname: "' . $this->genFakeName() . '" }
+            },{
+                table: "users" ,
+                values: { firstname: "' . $this->genFakeName() . '", lastname: "' . $this->genFakeName() . '" }
+            }
+        ] }
 		';
 
         // Store the result
         $rs = PDO4You::insert($sql, 'pdo4you');
 
         echo '<code>&nbsp;<strong>Test with PDO4You::insert()</strong></code>';
-        echo '<code class="debug">PDO4You::insert(' . $this->formatSql($sql) . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, true) . '</code>';
+        echo '<code class="debug">PDO4You::insert(' . $this->formatSql($sql) . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, true, true) . '</code>';
     }
 
     /**
@@ -109,32 +109,32 @@ class Test_CRUD
     public function multipleUpdate()
     {
         $sql = '
-		{ query : [
-			{
-				table: "users" ,
-				values: { lastname: "' . strtoupper($this->genFakeName()) . '" } ,
-				where: { id: 2 }
-			},{
-				table: "users" ,
-				values: { lastname: "' . strtoupper($this->genFakeName()) . '" } ,
-				where: { id: 12 }
-			},{
-				table: "users" ,
-				values: { lastname: "' . strtoupper($this->genFakeName()) . '" } ,
-				where: { id: 30 }
-			},{
-				table: "users" ,
-				values: { lastname: "' . strtoupper($this->genFakeName()) . '" } ,
-				where: { id: 1 }
-			}
-		] }
+        { query : [
+            {
+                table: "users" ,
+                values: { mail: "' . strtolower($this->genFakeName()) . '@gmail.com" } ,
+                where: { id: 2 }
+            },{
+                table: "users" ,
+                values: { mail: "' . strtolower($this->genFakeName()) . '@gmail.com" } ,
+                where: { id: 12 }
+            },{
+                table: "users" ,
+                values: { mail: "' . strtolower($this->genFakeName()) . '@gmail.com" } ,
+                where: { id: 30 }
+            },{
+                table: "users" ,
+                values: { mail: "' . strtolower($this->genFakeName()) . '@gmail.com" } ,
+                where: { id: 1 }
+            }
+        ] }
 		';
 
         // Store the result
         $rs = PDO4You::update($sql, 'pdo4you');
 
         echo '<code>&nbsp;<strong>Test with PDO4You::update()</strong></code>';
-        echo '<code class="debug">PDO4You::update(' . $this->formatSql($sql) . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, true) . '</code>';
+        echo '<code class="debug">PDO4You::update(' . $this->formatSql($sql) . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, false, true) . '</code>';
     }
 
     /**
@@ -145,28 +145,28 @@ class Test_CRUD
     public function multipleDelete()
     {
         $sql = '
-		{ query : [
-			{
-				table: "users" , 
-				where: { id: 4 }
-			},{
-				table: "users" ,
-				where: { id: 20 }
-			},{
-				table: "users" ,
-				where: { id: 30 }
-			},{
-				table: "books" ,
-				where: { id: 10 }
-			}
-		] }
+        { query : [
+            {
+                table: "users" , 
+                where: { id: 4 }
+            },{
+                table: "users" ,
+                where: { id: 20 }
+            },{
+                table: "users" ,
+                where: { id: 30 }
+            },{
+                table: "books" ,
+                where: { id: 10 }
+            }
+        ] }
 		';
 
         // Store the result
         $rs = PDO4You::delete($sql, 'pdo4you');
 
         echo '<code>&nbsp;<strong>Test with PDO4You::delete()</strong></code>';
-        echo '<code class="debug">PDO4You::delete(' . $this->formatSql($sql) . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, true) . '</code>';
+        echo '<code class="debug">PDO4You::delete(' . $this->formatSql($sql) . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, false, true) . '</code>';
     }
 
     /**
@@ -174,23 +174,23 @@ class Test_CRUD
      * Usage: PDO4You::update()
      * 
      * */
-    public function updateWhere($s)
+    public function updateWhere($s, $i)
     {
         $sql = '
-		{ query : [
-			{
-				table: "users" ,
-				values: { description: "' . $s . '" } ,
-				where: { id: 1 }
-			}
-		] }
+        { query : [
+            {
+                table: "books" ,
+                values: { description: "' . $s . '" } ,
+                where: { id: ' . $i . ' }
+            }
+        ] }
 		';
 
         // Store the result
         $rs = PDO4You::update($sql, 'pdo4you');
 
         echo '<code>&nbsp;<strong>Test with PDO4You::update()</strong></code>';
-        echo '<code class="debug">PDO4You::update(' . $this->formatSql($sql) . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, true) . '</code>';
+        echo '<code class="debug">PDO4You::update(' . $this->formatSql($sql) . ', ' . $this->formatDB() . ');' . $this->formatRS($rs, false, true) . '</code>';
     }
 
     /**
@@ -219,14 +219,18 @@ class Test_CRUD
      * Format the Result
      * 
      */
-    private function formatRS($rs, $extra = false)
+    private function formatRS($rs, $show_id = false, $show_count = false)
     {
         $s = '<br /><br />- The code above will output: ';
         $s.= '<pre style="color:blue;">' . print_r($rs, true) . '</pre>';
 
-        if ($extra) {
-            $s.= 'Id of the last iteration: <strong style="color:red;">' . PDO4You::lastId() . '</strong> &nbsp;|&nbsp; ';
-            $s.= 'Total records affected: <strong style="color:red;">' . PDO4You::rowCount() . '</strong><br />';
+        if ($show_id) 
+            $s.= 'Id of the last iteration: <strong style="color:red;">' . PDO4You::lastId() . '</strong>';
+
+        if ($show_count) {
+            if ($show_id)
+                $s.= ' &nbsp;|&nbsp;';
+            $s.= 'Total records affected: <strong style="color:red;">' . PDO4You::rowCount() . '</strong>';
         }
 
         return $s;
